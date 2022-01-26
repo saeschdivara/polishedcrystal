@@ -1,0 +1,12 @@
+version: '3'
+services:
+
+  compiler:
+    privileged: true
+    build: .
+    volumes:
+      - .:/usr/src/myapp
+    command: 'make'
+    environment:
+      PHP_FPM_USER: root
+      PHP_FPM_GROUP: root
