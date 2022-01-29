@@ -305,20 +305,10 @@ ChikoritaPokeBallScript:
 	iftrue_jumptext ElmPokeBallText
 	turnobject ELMSLAB_ELM, DOWN
 	refreshscreen
-	pokepic CHIKORITA
-	cry CHIKORITA
-	waitbutton
-	closepokepic
-	opentext
-	writetext TakeChikoritaText
-	yesorno
-	iffalse_jumpopenedtext DidntChooseStarterText
-	disappear ELMSLAB_POKE_BALL3
-	setevent EVENT_GOT_CHIKORITA_FROM_ELM
-	writetext ChoseStarterText
-	promptbutton
-	waitsfx
-	givepoke CHIKORITA, NO_FORM, 5, ORAN_BERRY
+    gameoptions_checkflag $02
+    iftrue .UseBulbasaur
+    iffalse .UseChikorita
+.Continue1:
 	writetext LyraChoosesStarterText
 	waitbutton
 	closetext
@@ -337,6 +327,40 @@ ChikoritaPokeBallScript:
 	applymovement ELMSLAB_LYRA, LyraAfterTotodileMovement
 	applymovement PLAYER, AfterChikoritaMovement
 	sjump ElmDirectionsScript
+
+.UseChikorita:
+	pokepic CHIKORITA
+	cry CHIKORITA
+	waitbutton
+	closepokepic
+	opentext
+	writetext TakeChikoritaText
+	yesorno
+	iffalse_jumpopenedtext DidntChooseStarterText
+	disappear ELMSLAB_POKE_BALL3
+	setevent EVENT_GOT_CHIKORITA_FROM_ELM
+	writetext ChoseStarterText
+	promptbutton
+	waitsfx
+	givepoke CHIKORITA, NO_FORM, 5, ORAN_BERRY ; actually give the pokemon
+    sjump .Continue1
+
+.UseBulbasaur:
+	pokepic BULBASAUR
+	cry BULBASAUR
+	waitbutton
+	closepokepic
+	opentext
+	writetext TakeBulbasaurText
+	yesorno
+	iffalse_jumpopenedtext DidntChooseStarterText
+	disappear ELMSLAB_POKE_BALL3
+	setevent EVENT_GOT_CHIKORITA_FROM_ELM
+	writetext ChoseStarterText
+	promptbutton
+	waitsfx
+	givepoke BULBASAUR, NO_FORM, 5, ORAN_BERRY ; actually give the pokemon
+    sjump .Continue1
 
 ElmDirectionsScript:
 	turnobject PLAYER, UP
@@ -1009,9 +1033,21 @@ TakeTotodileText:
 	cont "water #mon?"
 	done
 
+TakeSquirtleText:
+	text "Elm: Do you want"
+	line "Take Squirtle, the"
+	cont "water #mon?"
+	done
+
 TakeChikoritaText:
 	text "Elm: So, you like"
 	line "Chikorita, the"
+	cont "grass #mon?"
+	done
+
+TakeBulbasaurText:
+	text "Elm: So, you like"
+	line "Bulbasaur, the"
 	cont "grass #mon?"
 	done
 
