@@ -1291,11 +1291,18 @@ wInitialOptions::
 ; bit 5: nuzlocke mode off/on
 ; bit 6: scaled exp on/off
 ; bit 7: physical-special split on/off
-	db
+	ds 0 ; default value 0
 
 wInitialOptions2::
 ; bits 0-6: unused
 ; bit 7: ask to reset at start
+	db
+
+wInitialGameplayOptions::
+; bits 0-3:
+;    $00: normal johto starters
+;    $01: kanto starters
+; bit 4 - 7: unused
 	db
 wOptionsEnd::
 

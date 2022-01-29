@@ -102,6 +102,12 @@ ABILITIES_OPTMASK EQU 1 << ABILITIES_OPT
 ; wInitialOptions2::
 RESET_INIT_OPTS EQU 7
 
+; wInitialGameplayOptions::
+	const_def
+	const STARTERS_PART1_OPT      ; 0
+
+GAMEPLAY_OPTMASK EQU 0
+
 ; wForgettingMove::
 	const_def 6
 	const LEARNING_TM_F     ; 6

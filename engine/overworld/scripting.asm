@@ -263,6 +263,7 @@ ScriptCommandTable:
 	dw Script_givebp                     ; cc
 	dw Script_takebp                     ; cd
 	dw Script_checkbp                    ; ce
+	dw Script_gameoptions_checkflag      ; cf
 	assert_table_length NUM_EVENT_COMMANDS
 
 StartScript:
@@ -2634,3 +2635,17 @@ Script_keyitemnotify:
 	ld b, BANK(_PutItemInPocketText)
 	ld hl, _PutItemInPocketText
 	jmp MapTextbox
+
+Script_gameoptions_checkflag:
+	call GetScriptByte
+	ld hl, wInitialGameplayOptions
+	and [hl]
+	jr z, .setFalse
+.setTrue:
+	ld a, TRUE
+	ldh [hScriptVar], a
+	ret
+.setFalse
+	ld a, FALSE
+	ldh [hScriptVar], a
+	ret

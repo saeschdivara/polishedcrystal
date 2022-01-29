@@ -156,7 +156,7 @@ INCBIN "gfx/new_game/init_bg.2bpp"
 	db "            :<LNBRK>"
 	db "Nuzlocke mode<LNBRK>"
 	db "            :<LNBRK>"
-	db "Done@"
+	db "Next@"
 
 GetInitialOptionPointer:
 	call StandardStackJumpTable

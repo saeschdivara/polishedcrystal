@@ -198,25 +198,15 @@ LabTryToLeaveScript:
 	applyonemovement PLAYER, step_up
 	end
 
-CyndaquilPokeBallScript:
+CyndaquilPokeBallScript: ;
 	checkevent EVENT_GOT_A_POKEMON_FROM_ELM
 	iftrue_jumptext ElmPokeBallText
 	turnobject ELMSLAB_ELM, DOWN
 	refreshscreen
-	pokepic CYNDAQUIL
-	cry CYNDAQUIL
-	waitbutton
-	closepokepic
-	opentext
-	writetext TakeCyndaquilText
-	yesorno
-	iffalse_jumpopenedtext DidntChooseStarterText
-	disappear ELMSLAB_POKE_BALL1
-	setevent EVENT_GOT_CYNDAQUIL_FROM_ELM
-	writetext ChoseStarterText
-	promptbutton
-	waitsfx
-	givepoke CYNDAQUIL, NO_FORM, 5, ORAN_BERRY
+	gameoptions_checkflag $02
+	iftrue .UseCharmander
+	iffalse .UseCyndaquil
+.Continue1:
 	writetext LyraChoosesStarterText
 	waitbutton
 	closetext
@@ -237,6 +227,40 @@ CyndaquilPokeBallScript:
 	ifequal RIGHT, ElmDirectionsScript
 	applymovement PLAYER, AfterCyndaquilMovement
 	sjump ElmDirectionsScript
+
+.UseCyndaquil:
+    pokepic CYNDAQUIL
+    cry CYNDAQUIL
+	waitbutton
+	closepokepic
+	opentext
+	writetext TakeCyndaquilText
+	yesorno
+	iffalse_jumpopenedtext DidntChooseStarterText
+	disappear ELMSLAB_POKE_BALL1
+	setevent EVENT_GOT_CYNDAQUIL_FROM_ELM
+	writetext ChoseStarterText
+	promptbutton
+	waitsfx
+	givepoke CYNDAQUIL, NO_FORM, 5, ORAN_BERRY ; actually give the pokemon
+    sjump .Continue1
+
+.UseCharmander:
+	pokepic CHARMANDER
+	cry CHARMANDER
+	waitbutton
+	closepokepic
+	opentext
+	writetext TakeCharmanderText
+	yesorno
+	iffalse_jumpopenedtext DidntChooseStarterText
+	disappear ELMSLAB_POKE_BALL1
+	setevent EVENT_GOT_CYNDAQUIL_FROM_ELM
+	writetext ChoseStarterText
+	promptbutton
+	waitsfx
+	givepoke CHARMANDER, NO_FORM, 5, ORAN_BERRY ; actually give the pokemon
+    sjump .Continue1
 
 TotodilePokeBallScript:
 	checkevent EVENT_GOT_A_POKEMON_FROM_ELM
@@ -970,6 +994,12 @@ LabWhereGoingText:
 TakeCyndaquilText:
 	text "Elm: You'll take"
 	line "Cyndaquil, the"
+	cont "fire #mon?"
+	done
+
+TakeCharmanderText:
+	text "Elm: You'll take"
+	line "Charmander, the"
 	cont "fire #mon?"
 	done
 

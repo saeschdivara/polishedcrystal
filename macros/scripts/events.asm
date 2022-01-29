@@ -1312,4 +1312,11 @@ checkbp: MACRO
 	dw \1 ; bp
 ENDM
 
+	const gameoptions_checkflag_command
+gameoptions_checkflag: MACRO
+	db gameoptions_checkflag_command
+	db \1 ; value variable
+ENDM
+
+
 NUM_EVENT_COMMANDS EQU const_value

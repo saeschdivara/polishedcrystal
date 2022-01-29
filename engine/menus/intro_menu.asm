@@ -58,6 +58,7 @@ _NewGame_FinishSetup:
 	call NewGame_ClearTileMapEtc
 	call WarnVBA
 	call SetInitialOptions
+	call SetInitialOptions2
 	call ProfElmSpeech
 	call InitializeWorld
 	ld a, 1
