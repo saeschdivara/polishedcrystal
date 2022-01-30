@@ -267,20 +267,10 @@ TotodilePokeBallScript:
 	iftrue_jumptext ElmPokeBallText
 	turnobject ELMSLAB_ELM, DOWN
 	refreshscreen
-	pokepic TOTODILE
-	cry TOTODILE
-	waitbutton
-	closepokepic
-	opentext
-	writetext TakeTotodileText
-	yesorno
-	iffalse_jumpopenedtext DidntChooseStarterText
-	disappear ELMSLAB_POKE_BALL2
-	setevent EVENT_GOT_TOTODILE_FROM_ELM
-	writetext ChoseStarterText
-	promptbutton
-	waitsfx
-	givepoke TOTODILE, NO_FORM, 5, ORAN_BERRY
+	gameoptions_checkflag $02
+	iftrue .UseSquirtle
+	iffalse .UseTotodile
+.Continue1:
 	writetext LyraChoosesStarterText
 	waitbutton
 	closetext
@@ -299,6 +289,40 @@ TotodilePokeBallScript:
 	applymovement ELMSLAB_LYRA, LyraAfterCyndaquilMovement
 	applymovement PLAYER, AfterTotodileMovement
 	sjump ElmDirectionsScript
+
+.UseTotodile:
+	pokepic TOTODILE
+	cry TOTODILE
+	waitbutton
+	closepokepic
+	opentext
+	writetext TakeTotodileText
+	yesorno
+	iffalse_jumpopenedtext DidntChooseStarterText
+	disappear ELMSLAB_POKE_BALL2
+	setevent EVENT_GOT_TOTODILE_FROM_ELM
+	writetext ChoseStarterText
+	promptbutton
+	waitsfx
+	givepoke TOTODILE, NO_FORM, 5, ORAN_BERRY ; actually give the pokemon
+    sjump .Continue1
+
+.UseSquirtle:
+	pokepic SQUIRTLE
+	cry SQUIRTLE
+	waitbutton
+	closepokepic
+	opentext
+	writetext TakeSquirtleText
+	yesorno
+	iffalse_jumpopenedtext DidntChooseStarterText
+	disappear ELMSLAB_POKE_BALL2
+	setevent EVENT_GOT_TOTODILE_FROM_ELM
+	writetext ChoseStarterText
+	promptbutton
+	waitsfx
+	givepoke SQUIRTLE, NO_FORM, 5, ORAN_BERRY ; actually give the pokemon
+    sjump .Continue1
 
 ChikoritaPokeBallScript:
 	checkevent EVENT_GOT_A_POKEMON_FROM_ELM
